@@ -1,0 +1,44 @@
+.Card-List {
+  display: flex;
+  padding: 3rem;
+  justify-content: center;
+}
+
+.Card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 350px;
+  width: 400px;
+  min-width: 250px;
+  padding: 1.5rem;
+  align-items: center;
+
+  border-radius: 16px;
+  background: #17141d;
+  box-shadow: -1rem 0 3rem #000;
+
+  /* Any value changes which occur on Card takes .2s to occur */
+  transition: .2s;
+}
+
+.Card-Img {
+  height: 150px;
+  width: 150px;
+  padding: 1.5rem;
+}
+
+/* On card hover have the selected card shift upwards slgihtly */
+.Card:hover {
+  transform: translateY(-1rem);
+}
+
+/* On card hover select all other Cards and shift them to make selected card fully viewable */
+.Card:hover~.Card {
+  transform: translateX(1rem);
+}
+
+/* Move all non-first Cards to overlap with the first card */
+.Card:not(:first-child) {
+  margin-left: -1rem;
+}

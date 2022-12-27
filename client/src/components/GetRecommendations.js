@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import "./GetRecommendations.css"
 
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi()
@@ -19,19 +20,25 @@ const GetRecommendations = (props) => {
 
   return (
     <div>
-      <div>
+      {
+      <button onClick={() => getRecommended()}>Get Recommended Tracks!</button>
+      }
+
+      <section className="Card-List">
+        
         {/* Need to check firstly if recommendations.tracks exists as an array before calling maps on it */}
         {Array.isArray(recommendations.tracks) && recommendations.tracks.map((tracks) => {
           return (
-            <div>
-              <h3>{tracks.name}</h3>
-              <img src={tracks.album.images[0].url} style={ {height: 150} }/>
-            </div>
+            <article className="Card">
+              <header className="Card-Header">{tracks.name}</header>
+              <img className="Card-Img" src={tracks.album.images[0].url}/>
+            </article>
           )
         })}
-      </div>
-      <button onClick={() => getRecommended()}>Get Recommended Tracks!</button>
+        
+      </section>
     </div>
+
   )
 }
 export default GetRecommendations;

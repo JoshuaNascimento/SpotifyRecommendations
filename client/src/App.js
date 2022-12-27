@@ -20,9 +20,8 @@ function App() {
 
   // States
   const [spotifyToken, setSpotifyToken] = useState("")
-  const [nowPlaying, setNowPlaying] = useState([])
+  const [currentPlayback, setcurrentPlayback] = useState([])
   const [loggedIn, setLoggedIn] = useState(false)
-  const [recommendations, setRecommendations] = useState([])
 
   // useEffect runs after initial render
   useEffect(() => {
@@ -41,49 +40,53 @@ function App() {
   })
 
   // API call to spotify to get the song the user is currently listening too
-  const getNowPlaying = () => {
+  const getCurrentPlayback = () => {
     spotifyApi.getMyCurrentPlaybackState().then((trackInfo) => {  // First API call to get user's current playing track
       spotifyApi.getArtist(trackInfo.item.artists[0].id).then((artistInfo) => { // Second API call to get song's main artist to pull their related genres
-        if (trackInfo.item.name !== nowPlaying.name) {  // Check if the current tracks name is the same as the track already saved to state
-          setNowPlaying({ // False; Set nowPlaying state with new track information
+        if (trackInfo.item.name !== currentPlayback.name) {  // Check if the current tracks name is the same as the track already saved to state
+          setcurrentPlayback({ // False; Set currentPlayback state with new track information
             name: trackInfo.item.name,
             albumArt: trackInfo.item.album.images[0].url,
             songID: trackInfo.item.id,
             artistID: trackInfo.item.artists[0].id,
             genres: artistInfo.genres
           })
-        } else {          // Otherwise; Track has not changed so wait before checking again
-          console.log("Trying again in 500ms")
-          setTimeout(getNowPlaying, 5000) 
+          pingCurrentPlayback()
         }
       })
     })
   }
-  
-  const getRecommended = () => {
-    spotifyApi.getRecommendations({
-      seed_artists: nowPlaying.artistID,
-      limit: 3
-    }).then((recommendations) => {
-      setRecommendations(recommendations)
-      console.log(recommendations.tracks)
-    })
+
+  // Every 5 seconds call getCurrentPlayback and update if the user has switched songs
+  const pingCurrentPlayback = () => {
+    setTimeout(() => {
+      getCurrentPlayback()
+    }, 5000);
   }
 
   return (
     <div className="App">
-      {!loggedIn && <a href="http://localhost:8888">Login To Spotify</a>}
 
-      {loggedIn && <NowPlaying name={nowPlaying.name} albumArt={nowPlaying.albumArt}/>}
+        {!loggedIn && 
+          <a className="Login" href="http://localhost:8888">
+            <button className="Login-Button">
+              Authenticate With Spotify
+            </button>
+          </a>}
+        
+        <div className="Playing-Container">
+        {loggedIn && <NowPlaying name={currentPlayback.name} albumArt={currentPlayback.albumArt} api={spotifyApi}/>}
 
-      {loggedIn && (
-        <button onClick={() => getNowPlaying()}> Check Now Playing</button>
-      )}
+         {/* Use arrow function on button call to prevent it from firing on render and multiple unwanted times */}
+        </div>
 
-      {loggedIn && NowPlaying != null && <GetRecommendations artistID={nowPlaying.artistID}/>}
+        {loggedIn && pingCurrentPlayback()}
+
+        {/* currentPlayback is an array before being set so only display recommendations after current playback has been set.
+        There is most likely a better way to do this condition check but this was the first way i got it to work :) */}
+        {loggedIn && !Array.isArray(currentPlayback) && <GetRecommendations artistID={currentPlayback.artistID} />}
     </div>
 
   );
 }
-
 export default App;

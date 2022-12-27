@@ -1,0 +1,20 @@
+.Playing-Card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 350px;
+  width: 400px;
+  min-width: 250px;
+  padding: 1.5rem;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 16px;
+  background: #17141d;
+  box-shadow: -1rem 0 3rem #000;
+}
+
+.Playing-Img {
+  padding: 1.5rem;
+  height: 150px;
+}

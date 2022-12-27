@@ -1,11 +1,16 @@
+import "./NowPlaying.css"
+
 const NowPlaying = (props) => {
   return (
-    <div>
-      <div>Now Playing: {props.name}</div>
-      <div>
-        <img src={props.albumArt} style={{ height: 150 }} />
-      </div>  
-    </div>
+    <article className="Playing-Card">
+
+      {props.name === undefined ?
+      <header className="Playing-Message">Begin listening on your spotify player...{props.name}</header> :
+      <header className="Playing-Name">Now Playing: {props.name}</header>
+      }
+
+      <img className="Playing-Img" src={props.albumArt} />
+    </article>
   )
 }
 
