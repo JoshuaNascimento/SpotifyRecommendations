@@ -1,3 +1,15 @@
+.Recommend-Button {
+  background-color: #4B4237;
+  color: white;
+  border-radius: 5px;
+  padding: 0.2rem 0.4rem;
+  margin: 0.5rem 0rem;
+  cursor: pointer;
+}
+.Recommend-Button:hover {
+  background-color: #D5A021;
+}
+
 .Card-List {
   display: flex;
   padding: 3rem;
@@ -15,11 +27,24 @@
   align-items: center;
 
   border-radius: 16px;
-  background: #17141d;
+  background: #736B60;
   box-shadow: -1rem 0 3rem #000;
 
   /* Any value changes which occur on Card takes .2s to occur */
   transition: .2s;
+}
+
+.Icon-Play {
+  margin: 1.5rem;
+  height: 5rem;
+  width: 5rem;
+  fill: #4B4237
+
+}
+
+.Icon-Play:hover {
+  fill: #D5A021;
+  cursor: pointer;
 }
 
 .Card-Img {
