@@ -1,8 +1,10 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import "./GetRecommendations.css"
 
 import SpotifyWebApi from 'spotify-web-api-js';
 import {ReactComponent as PlayIcon} from "./Assets/play-icon.svg"
+import {ReactComponent as LikeIcon} from "./Assets/like-icon.svg"
+import {ReactComponent as CheckIcon} from "./Assets/check-icon.svg"
 
 const GetRecommendations = (props) => {
 
@@ -10,6 +12,9 @@ const GetRecommendations = (props) => {
   
   const [seedData, setSeedData] = useState([])
   const [recommendations, setRecommendations] = useState([])
+  const [likedSongs, setLikedSongs] = useState([false, false, false])
+
+  
   
   const seedRequest = () => {
     // Each request for recommendations will have a random value to use as a +/- for min and max values in recommendation request
@@ -40,6 +45,9 @@ const GetRecommendations = (props) => {
 
   const getRecommended = () => {
 
+    // Reset the likedSongs state
+    const newLikedSongs = [false, false, false]
+    setLikedSongs(newLikedSongs)
     
     spotifyApi.getRecommendations({
       seed_artists: props.artistID,
@@ -58,6 +66,11 @@ const GetRecommendations = (props) => {
    */
   }
 
+  /**
+   *  queueThenPlay fires when a user clicks the play button for a track given in a recommendations card
+   *  
+   * @param {*} track - The track which will be played
+   */
   const queueThenPlay = (track) => {
     spotifyApi.queue(track.uri).then((response, callback) => {
       if (callback == null) {
@@ -65,6 +78,34 @@ const GetRecommendations = (props) => {
       }
     })
     console.log("test")
+  }
+
+  /**
+   * useEffect will update the application every instance the likedSongs state is changed
+   * This allows for the application to render either the check or like icon dependent on if it has been clicked already
+   */
+  useEffect( () => {
+  }, [likedSongs])
+
+  // Takes the track displayed at the card index of recommendations and calls spotifyAPI to save it to a user's liked songs playlist
+  /**
+   * Takes the track displayed at the index of a given recommendations card
+   * First, updates likeSongs state to allow the app to render the correct icon 
+   * Second, calls the spotify api to add the track to a user's "liked songs" playlist
+   * @param {*} track - The track which will be added to liked songs
+   * @param {*} index - The index of the track in the recommendations cards
+   */
+  const addToLikedSongs = (track, index) => {
+
+    // State should be treated as immutable so create a new boolean array using previous states values
+    const newLikedSongs = [...likedSongs]
+    // Set index of liked song to true in the new likedSongs state
+    newLikedSongs[index] = true
+    // Set likedSongs state to be this new array
+    setLikedSongs(newLikedSongs)
+    
+    // Call spotifyAPI to add the track to a user's liked songs playlist
+    //spotifyApi.addToMySavedTracks([`${track.id}`])
   }
 
   return (
@@ -76,13 +117,16 @@ const GetRecommendations = (props) => {
       <section className="Card-List">
         
         {/* Need to check firstly if recommendations.tracks exists as an array before calling maps on it */}
-        {Array.isArray(recommendations.tracks) && recommendations.tracks.map((tracks) => {
+        {Array.isArray(recommendations.tracks) && recommendations.tracks.map((tracks, index) => {
           return (
             <article className="Card">
               <header className="Card-Header">{tracks.name}</header>
               <img className="Card-Img" src={tracks.album.images[0].url}/>
               <div className="Card-Icons">
-                <PlayIcon className="Icon-Play" onClick={() => queueThenPlay(tracks)}/>
+                <PlayIcon className="Icon" onClick={() => queueThenPlay(tracks)}/>
+                { likedSongs[index] === false ?
+                <LikeIcon className="Icon" onClick={() => addToLikedSongs(tracks, index)}/>:
+                <CheckIcon className="Icon"/>}
               </div>
             </article>
           )

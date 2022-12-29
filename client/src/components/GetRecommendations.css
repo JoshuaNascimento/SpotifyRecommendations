@@ -34,15 +34,14 @@
   transition: .2s;
 }
 
-.Icon-Play {
+.Icon {
   margin: 1.5rem;
   height: 5rem;
   width: 5rem;
-  fill: #4B4237
-
+  fill: #4B4237;
 }
 
-.Icon-Play:hover {
+.Icon:hover {
   fill: #D5A021;
   cursor: pointer;
 }

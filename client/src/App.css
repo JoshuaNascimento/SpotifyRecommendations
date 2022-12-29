@@ -26,4 +26,15 @@ body {
   height: 4rem;
 }
 
+.Login-Button {
+  border-radius: 10px;
+  width: 12rem;
+  height: 4rem;
+  background-color: #918779;
+}
+
+.Login-Button:hover {
+  background-color: #D5A021;
+  cursor: pointer;
+}
 
