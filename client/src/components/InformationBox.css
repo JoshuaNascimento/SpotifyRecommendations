@@ -1,0 +1,20 @@
+.Information-Box {
+
+  position: absolute;
+  flex-direction: column;
+  height: 600px;
+  width: 700px;
+  min-width: 250px;
+  padding: 1.5rem;
+  align-items: center;
+
+  border-radius: 16px;
+  background: #736B60;
+  box-shadow: -1rem 0 3rem #000;
+
+  top: calc(25%);
+  left: calc(30%);
+
+  /* Any value changes which occur on Card takes .2s to occur */
+  transition: .2s;
+}

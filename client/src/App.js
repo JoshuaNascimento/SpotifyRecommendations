@@ -74,11 +74,11 @@ function App() {
             </button>
           </a>}
         
-        <div className="Playing-Container">
+
         {loggedIn && <NowPlaying name={currentPlayback.name} albumArt={currentPlayback.albumArt} api={spotifyApi}/>}
 
          {/* Use arrow function on button call to prevent it from firing on render and multiple unwanted times */}
-        </div>
+
 
         {loggedIn && pingCurrentPlayback()}
 

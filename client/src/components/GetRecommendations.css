@@ -18,7 +18,7 @@
 
 .Card {
   display: flex;
-  position: relative;
+
   flex-direction: column;
   height: 350px;
   width: 400px;

@@ -15,12 +15,6 @@ body {
   color: white;
 }
 
-.Playing-Container {
-  justify-content: center;
-  padding: 2rem;
-  display: flex;
-}
-
 .Playing-Button {
   width: 8rem;
   height: 4rem;
