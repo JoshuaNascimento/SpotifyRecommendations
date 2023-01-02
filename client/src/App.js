@@ -42,6 +42,7 @@ function App() {
   // API call to spotify to get the song the user is currently listening too
   const getCurrentPlayback = () => {
     spotifyApi.getMyCurrentPlaybackState().then((trackInfo) => {  // First API call to get user's current playing track
+      if (trackInfo.item.artists[0] > 0) {return}
       spotifyApi.getArtist(trackInfo.item.artists[0].id).then((artistInfo) => { // Second API call to get song's main artist to pull their related genres
         if (trackInfo.item.name !== currentPlayback.name) {  // Check if the current tracks name is the same as the track already saved to state
           setcurrentPlayback({ // False; Set currentPlayback state with new track information
@@ -60,8 +61,9 @@ function App() {
   // Every 5 seconds call getCurrentPlayback and update if the user has switched songs
   const pingCurrentPlayback = () => {
     setTimeout(() => {
+      console.log("checking player")
       getCurrentPlayback()
-    }, 5000);
+    }, 10000);
   }
 
   return (

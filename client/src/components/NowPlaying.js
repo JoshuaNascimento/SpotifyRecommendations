@@ -1,12 +1,18 @@
 import "./NowPlaying.css"
 
 import React, {useState, useEffect} from "react"
-import {ReactComponent as QuestionIcon} from "./Assets/question-icon.svg"
 
-import InformationBox from "./InformationBox.js"
+import {ReactComponent as QuestionIcon} from "./Assets/question-icon.svg"
+import {ReactComponent as PlayIcon} from "./Assets/play-icon.svg"
+import {ReactComponent as SkipIcon} from "./Assets/skip-icon.svg"
+
+import PlayerIcons from "./PlayerIcons.js"
+
 import Popup from "./Popup.js"
 
 const NowPlaying = (props) => {
+
+  // TODO: Could do on component mount check for current tracks to speed up initial search
 
   const [popupVisible, setPopupVisible] = useState(false)
 
@@ -17,7 +23,7 @@ const NowPlaying = (props) => {
       
       <article className="Playing-Card">
 
-        <QuestionIcon className="question-icon" onClick={ () => setPopupVisible(true) }/>
+        <QuestionIcon className="Question-Icon" onClick={ () => setPopupVisible(true) }/>
 
         {props.name === undefined ?
         <header className="Playing-Message">Begin listening on your spotify player...{props.name}</header> :
@@ -25,7 +31,15 @@ const NowPlaying = (props) => {
         }
 
         <img className="Playing-Img" src={props.albumArt} />
+
+        {/* Player to allow Manipulating Spotify player from browser */}
+        <PlayerIcons className="Icons-Container"/>
+        
+  
       </article>
+
+      
+      
     </div>
   )
 }

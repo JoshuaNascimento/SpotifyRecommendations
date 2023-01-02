@@ -119,7 +119,8 @@ const GetRecommendations = (props) => {
         {/* Need to check firstly if recommendations.tracks exists as an array before calling maps on it */}
         {Array.isArray(recommendations.tracks) && recommendations.tracks.map((tracks, index) => {
           return (
-            <article className="Card">
+            // Give each track a key of it's index to avoid warnings in the console
+            <article className="Card" key={index}>
               <header className="Card-Header">{tracks.name}</header>
               <img className="Card-Img" src={tracks.album.images[0].url}/>
               <div className="Card-Icons">

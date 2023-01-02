@@ -18,7 +18,8 @@
   padding: 32px;
   width: 100%;
   max-width: 640px;
-  background-color: #f1e3e4;
+  background-color: #E1D9C5;
+  border-radius: 20px;
 }
 
 .Popup-Content .Popup-Close {

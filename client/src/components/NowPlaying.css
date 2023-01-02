@@ -21,19 +21,21 @@
 .Playing-Img {
   padding: 1.5rem;
   height: 150px;
+  border-radius: 30px;
 }
 
-.question-icon {
-  margin: 1.5rem;
+.Question-Icon {
+  padding-top: -0rem;
   height: 2rem;
   width: 2rem;
   fill: #4B4237;
   align-self: flex-end;
-  margin-top: -5rem;
-  margin-right: 0rem;
+
+
 }
 
-.question-icon:hover {
+.Question-Icon:hover {
   fill: #D5A021;
   cursor: pointer;
 }
+

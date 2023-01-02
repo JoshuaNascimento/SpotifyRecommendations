@@ -18,7 +18,6 @@
 
 .Card {
   display: flex;
-
   flex-direction: column;
   height: 350px;
   width: 400px;
@@ -50,6 +49,7 @@
   height: 150px;
   width: 150px;
   padding: 1.5rem;
+  border-radius: 30px;
 }
 
 /* On card hover have the selected card shift upwards slgihtly */
