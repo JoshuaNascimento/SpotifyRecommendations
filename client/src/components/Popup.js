@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Popup.css"
+import "./Styles/Popup.css"
 import {ReactComponent as CloseIcon} from "./Assets/close-icon.svg"
 import {ReactComponent as PlayIcon} from "./Assets/play-icon.svg"
 import {ReactComponent as LikeIcon} from "./Assets/like-icon.svg"

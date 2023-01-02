@@ -1,4 +1,4 @@
-import "./InformationBox.css"
+import "./Styles/InformationBox.css"
 
 const InformationBox = () => {
   console.log("called")

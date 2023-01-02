@@ -1,10 +1,8 @@
-import "./NowPlaying.css"
+import "./Styles/NowPlaying.css"
 
-import React, {useState, useEffect} from "react"
+import React, {useState} from "react"
 
 import {ReactComponent as QuestionIcon} from "./Assets/question-icon.svg"
-import {ReactComponent as PlayIcon} from "./Assets/play-icon.svg"
-import {ReactComponent as SkipIcon} from "./Assets/skip-icon.svg"
 
 import PlayerIcons from "./PlayerIcons.js"
 

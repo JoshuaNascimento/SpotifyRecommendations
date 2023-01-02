@@ -70,7 +70,7 @@ function App() {
     <div className="App">
 
         {!loggedIn && 
-          <a className="Login" href="http://localhost:8888">
+          <a className="Login" href="http://localhost:8888/login">
             <button className="Login-Button">
               Authenticate With Spotify
             </button>

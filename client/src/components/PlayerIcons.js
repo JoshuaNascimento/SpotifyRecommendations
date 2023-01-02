@@ -1,5 +1,5 @@
 import React from 'react'
-import "./PlayerIcons.css"
+import "./Styles/PlayerIcons.css"
 
 import {ReactComponent as PlayIcon} from "./Assets/play-icon.svg"
 import {ReactComponent as SkipIcon} from "./Assets/skip-icon.svg"

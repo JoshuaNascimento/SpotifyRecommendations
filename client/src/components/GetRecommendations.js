@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import "./GetRecommendations.css"
+import "./Styles/GetRecommendations.css"
 
 import SpotifyWebApi from 'spotify-web-api-js';
 import {ReactComponent as PlayIcon} from "./Assets/play-icon.svg"
