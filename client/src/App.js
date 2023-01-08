@@ -8,6 +8,8 @@ import GetRecommendations from "./components/GetRecommendations"
 
 const spotifyApi = new SpotifyWebApi()
 
+const PORT = process.env.REACT_APP_PORT || 8888
+
 const getTokenFromURL = () => {
   return window.location.hash.substring(1).split("&").reduce((initial, item) => {
     let parts = item.split("=");
@@ -37,7 +39,7 @@ function App() {
       })
       setLoggedIn(true)
     }
-  })
+  }, [])
 
   // API call to spotify to get the song the user is currently listening too
   const getCurrentPlayback = () => {
@@ -62,7 +64,7 @@ function App() {
   const pingCurrentPlayback = () => {
     setTimeout(() => {
       getCurrentPlayback()
-    }, 10000);
+    }, 5000);
   }
 
   return (
