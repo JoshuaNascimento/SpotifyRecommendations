@@ -7,7 +7,8 @@ import GetRecommendations from "./components/GetRecommendations"
 
 const spotifyApi = new SpotifyWebApi()
 
-const PORT = process.env.REACT_APP_PORT || 8888
+const PORT = process.env.PORT || 8888
+const LOGINURL = `http://localhost:${PORT}/login`
 
 const getTokenFromURL = () => {
   return window.location.hash.substring(1).split("&").reduce((initial, item) => {
@@ -70,7 +71,7 @@ function App() {
     <div className="App">
 
         {!loggedIn && 
-          <a className="Login" href="http://localhost:8888/login">
+          <a className="Login" href={LOGINURL}>
             <button className="Login-Button">
               Authenticate With Spotify
             </button>
