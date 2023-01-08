@@ -17,7 +17,7 @@ const NowPlaying = (props) => {
   return (
     <div className="Playing-Container">
 
-      <Popup trigger={popupVisible} setTrigger={setPopupVisible}/>
+      <Popup trigger={popupVisible} className="test" setTrigger={setPopupVisible}/>
       
       <article className="Playing-Card">
 

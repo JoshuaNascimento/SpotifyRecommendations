@@ -101,7 +101,7 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          //console.log(body);
         });
 
         // we can also pass the token to the browser to make requests from there
@@ -144,5 +144,7 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 8888');
+// Check for port at start of server, defaulting to 8888 for dev environments
+const PORT = process.env.PORT || 8888
+console.log(`Listening on ${PORT}`);
 app.listen(8888);

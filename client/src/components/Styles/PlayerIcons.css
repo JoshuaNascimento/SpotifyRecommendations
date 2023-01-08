@@ -1,15 +1,18 @@
+.Icons-Container {
+  margin-left: center;
+  margin-right: center;
+  width: 30rem;
+}
+
 .Player-Icons {
   height: 5rem;
   width: 5rem;
   fill: #4B4237;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .Player-Icons:hover {
-  fill: #D5A021;
-  cursor: pointer;
-}
-
-.Player-Icons.Reversed:hover {
   fill: #D5A021;
   cursor: pointer;
 }

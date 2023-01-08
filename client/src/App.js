@@ -33,7 +33,7 @@ function App() {
       // Use Spotify Api
       spotifyApi.setAccessToken(spotifyToken)
       spotifyApi.getMe().then((user) => {
-        console.log(user)
+        //console.log(user)
       })
       setLoggedIn(true)
     }
@@ -61,7 +61,6 @@ function App() {
   // Every 5 seconds call getCurrentPlayback and update if the user has switched songs
   const pingCurrentPlayback = () => {
     setTimeout(() => {
-      console.log("checking player")
       getCurrentPlayback()
     }, 10000);
   }
