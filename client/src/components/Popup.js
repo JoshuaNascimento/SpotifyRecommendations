@@ -16,6 +16,8 @@ function Popup(props) {
         <h3>You may then click the "{<PlayIcon className="Popup-Icon"/>}" Icon to listen to them on your Spotify Player</h3>
         <br></br>
         <h3>If you enjoy the song you may click the "{<LikeIcon className="Popup-Icon"/>}" Icon to add that track to your "Liked Songs" playlist on Spotify</h3>
+        <br></br>
+        <h3>There is a roughly 5 second pause between registering a track from the player and updating the UI otherwise Spotify API police come for me :)</h3>
         
 
       </div>

@@ -8,7 +8,6 @@ import {ReactComponent as PauseIcon} from "./Assets/pause-icon.svg"
 
 import SpotifyWebApi from 'spotify-web-api-js';
 
-
 function PlayerIcons() {
 
   const spotifyApi = new SpotifyWebApi()
@@ -17,7 +16,7 @@ function PlayerIcons() {
 
   useEffect( () => {
     const timer = setTimeout( () => {
-    }, 2000);
+    }, 5000);
     spotifyApi.getMyCurrentPlaybackState().then( (response) => {
       //console.log(response.is_playing)
       setIsPlaying(response.is_playing)
@@ -29,9 +28,12 @@ function PlayerIcons() {
   return (
     <div className="Icons-Container">
       {/* TODO: Use get playback state and the "is_playing" return value to determine whether to display the pause or play icon*/}
-          <PreviousIcon className="Player-Icons" onClick={() => spotifyApi.skipToPrevious() && setIsPlaying(true)}/>
-          {isPlaying === true ? <PauseIcon className="Player-Icons" onClick={() => spotifyApi.pause()}/> :
-          <PlayIcon className="Player-Icons" onClick={() => spotifyApi.play()}/>}
+          <PreviousIcon className="Player-Icons" onClick={() => spotifyApi.skipToPrevious()}/>
+          {isPlaying === true ? 
+            <PauseIcon className="Player-Icons" onClick={() => spotifyApi.pause()}/> 
+              :
+            <PlayIcon className="Player-Icons" onClick={() => spotifyApi.play()}/>
+          }
           <SkipIcon className="Player-Icons" onClick={() => spotifyApi.skipToNext()}/>
         </div>
   )

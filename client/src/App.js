@@ -41,32 +41,6 @@ function App() {
     }
   }, [])
 
-  // API call to spotify to get the song the user is currently listening too
-  const getCurrentPlayback = () => {
-    spotifyApi.getMyCurrentPlaybackState().then((trackInfo) => {  // First API call to get user's current playing track
-      if (trackInfo.item.artists[0] > 0) {return}
-      spotifyApi.getArtist(trackInfo.item.artists[0].id).then((artistInfo) => { // Second API call to get song's main artist to pull their related genres
-        if (trackInfo.item.name !== currentPlayback.name) {  // Check if the current tracks name is the same as the track already saved to state
-          setcurrentPlayback({ // False; Set currentPlayback state with new track information
-            name: trackInfo.item.name,
-            albumArt: trackInfo.item.album.images[0].url,
-            songID: trackInfo.item.id,
-            artistID: trackInfo.item.artists[0].id,
-            genres: artistInfo.genres
-          })
-          pingCurrentPlayback()
-        }
-      })
-    })
-  }
-
-  // Every 5 seconds call getCurrentPlayback and update if the user has switched songs
-  const pingCurrentPlayback = () => {
-    setTimeout(() => {
-      getCurrentPlayback()
-    }, 5000);
-  }
-
   return (
     <div className="App">
 
@@ -78,12 +52,9 @@ function App() {
           </a>}
         
 
-        {loggedIn && <NowPlaying name={currentPlayback.name} albumArt={currentPlayback.albumArt} api={spotifyApi}/>}
+        {loggedIn && <NowPlaying spotifyApi={spotifyApi}/>}
 
          {/* Use arrow function on button call to prevent it from firing on render and multiple unwanted times */}
-
-
-        {loggedIn && pingCurrentPlayback()}
 
         {/* currentPlayback is an array before being set so only display recommendations after current playback has been set.
         There is most likely a better way to do this condition check but this was the first way i got it to work :) */}
