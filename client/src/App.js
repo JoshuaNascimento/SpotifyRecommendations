@@ -54,12 +54,6 @@ function App() {
 
         {loggedIn && <NowPlaying spotifyApi={spotifyApi}/>}
 
-         {/* Use arrow function on button call to prevent it from firing on render and multiple unwanted times */}
-
-        {/* currentPlayback is an array before being set so only display recommendations after current playback has been set.
-        There is most likely a better way to do this condition check but this was the first way i got it to work :) */}
-        {loggedIn && !Array.isArray(currentPlayback) && <GetRecommendations artistID={currentPlayback.artistID} songID={currentPlayback.songID}/>}
-
     </div>
 
   );
