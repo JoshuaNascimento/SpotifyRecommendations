@@ -1,8 +1,9 @@
 import "./Styles/NowPlaying.css"
+import GetRecommendations from "../components/GetRecommendations"
 
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 
-import {ReactComponent as QuestionIcon} from "./Assets/question-icon.svg"
+import { ReactComponent as QuestionIcon } from "./Assets/question-icon.svg"
 
 import PlayerIcons from "./PlayerIcons.js"
 
@@ -27,7 +28,7 @@ const NowPlaying = (props) => {
   // API call to spotify to get the song the user is currently listening too
   const getCurrentPlayback = (isPassive) => {
     spotifyApi.getMyCurrentPlaybackState().then((trackInfo) => {  // First API call to get user's current playing track
-      if (trackInfo.item.artists[0] > 0) {return}
+      if (trackInfo.item.artists[0] > 0) { return }
       spotifyApi.getArtist(trackInfo.item.artists[0].id).then((artistInfo) => { // Second API call to get song's main artist to pull their related genres
         if (trackInfo.item.name !== currentPlayback.name) {  // Check if the current tracks name is the same as the track already saved to state
           setCurrentPlayback({ // False; Set currentPlayback state with new track information
@@ -52,29 +53,34 @@ const NowPlaying = (props) => {
 
 
   return (
-    <div className="Playing-Container">
+    <div className="Card-Container">
 
-      <Popup trigger={popupVisible} setTrigger={setPopupVisible}/>
+      <div className="Playing-Container">
+
+        <Popup trigger={popupVisible} setTrigger={setPopupVisible} />
+
+        <article className="Playing-Card">
+
+          <QuestionIcon className="Question-Icon" onClick={() => setPopupVisible(true)} />
+
+          {currentPlayback.name === undefined ?
+            <header className="Playing-Message">Begin listening on your spotify player...{currentPlayback.name}</header> :
+            <header className="Playing-Name">Now Playing: {currentPlayback.name}</header>
+          }
+
+          <img className="Playing-Img" src={currentPlayback.albumArt} />
+
+          {/* Player to allow Manipulating Spotify player from browser */}
+          <PlayerIcons className="Icons-Container" getCurrentPlayback={getCurrentPlayback} />
+
+
+
+
+        </article>
+
+      </div>
       
-      <article className="Playing-Card">
-
-        <QuestionIcon className="Question-Icon" onClick={ () => setPopupVisible(true) }/>
-
-        {currentPlayback.name === undefined ?
-        <header className="Playing-Message">Begin listening on your spotify player...{currentPlayback.name}</header> :
-        <header className="Playing-Name">Now Playing: {currentPlayback.name}</header>
-        }
-
-        <img className="Playing-Img" src={currentPlayback.albumArt} />
-
-        {/* Player to allow Manipulating Spotify player from browser */}
-        <PlayerIcons className="Icons-Container" getCurrentPlayback={getCurrentPlayback}/>
-        
-  
-      </article>
-
-      
-      
+      {currentPlayback.artistID && <GetRecommendations artistID={currentPlayback.artistID} songID={currentPlayback.songID} />}
     </div>
   )
 }
