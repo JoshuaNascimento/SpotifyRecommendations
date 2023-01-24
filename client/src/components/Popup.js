@@ -9,15 +9,15 @@ function Popup(props) {
     <div className="Popup-Container">
       <div className="Popup-Content">
         <CloseIcon className="Popup-Close" onClick={ () => props.setTrigger(false)}/>
-        <h3>Begin listening to your favourite tracks either on Spotify or by pressing the "{<PlayIcon className="Popup-Icon"/>}" Icon on the main card </h3>
+        <h3>Begin listening to your favourite tracks on Spotify Web or Desktop, clear your song queue and allow the App to detect your session.</h3>
         <br></br>
-        <h3>Once you begin listening you may click on the Recommend Tracks button to have 3 tracks similar to the one you are currently listening to suggested</h3>
+        <h3>Once the App has detected your currently playing track you can click the Recommend Tracks button to have 3 tracks similar to the current one suggested.</h3>
         <br></br>
         <h3>You may then click the "{<PlayIcon className="Popup-Icon"/>}" Icon to listen to them on your Spotify Player</h3>
         <br></br>
         <h3>If you enjoy the song you may click the "{<LikeIcon className="Popup-Icon"/>}" Icon to add that track to your "Liked Songs" playlist on Spotify</h3>
         <br></br>
-        <h3>There is a roughly 5 second pause between registering a track from the player and updating the UI otherwise Spotify API police come for me :)</h3>
+        <h3>Your current track is refreshed every 5 seconds otherwise Spotify API police come for me :)</h3>
         
 
       </div>

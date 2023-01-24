@@ -11,48 +11,45 @@ import Popup from "./Popup.js"
 
 const NowPlaying = (props) => {
 
-  // TODO: Could do on component mount check for current tracks to speed up initial search
-
   const spotifyApi = props.spotifyApi
   const [currentPlayback, setCurrentPlayback] = useState([])
   const [popupVisible, setPopupVisible] = useState(false)
 
-  // Initiate infinite playback check seperated by 5 seconds
-  // TODO: Improve the api calling rate by adjusting the logic of this component
-  //    Potentially remove completly the suggestion of using the actual spotify player
-  //    Instead only using the application. So that the api is only updated when a button is clicked
+  /**
+   * useEffect triggers on initial render and every 5 seconds will call the getCurrentPlayback method to
+   * refresh the NowPlaying UI and display the correct and current track playing
+   */
   useEffect(() => {
-    pingCurrentPlayback()
-  }, [])
+    setTimeout(getCurrentPlayback, 5000)
+  })
 
-  // API call to spotify to get the song the user is currently listening too
-  const getCurrentPlayback = (isPassive) => {
-    spotifyApi.getMyCurrentPlaybackState().then((trackInfo) => {  // First API call to get user's current playing track
-      if (trackInfo.item.artists[0] > 0) { return }
-      spotifyApi.getArtist(trackInfo.item.artists[0].id).then((artistInfo) => { // Second API call to get song's main artist to pull their related genres
-        if (trackInfo.item.name !== currentPlayback.name) {  // Check if the current tracks name is the same as the track already saved to state
-          setCurrentPlayback({ // False; Set currentPlayback state with new track information
-            name: trackInfo.item.name,
-            albumArt: trackInfo.item.album.images[0].url,
-            songID: trackInfo.item.id,
-            artistID: trackInfo.item.artists[0].id,
-            genres: artistInfo.genres
-          })
-        }
+  /**
+   * Call the Spotify API to recieve information on the user's current playing track which is used to set state for CurrentPlayback 
+   */
+  const getCurrentPlayback = () => {
+    // call Spotify API using callback option provided by spotify-web-api-js 
+    spotifyApi.getMyCurrentPlayingTrack(function (err, trackInfo) {
+
+      // Check for error code return
+      if (err) {
+        console.error(err);
+      }
+
+      // Else use data recieved from API call to set CurrentPlayback state
+      // ? does a condition check for if the value exists, avoiding undefined error readouts in browser console
+      setCurrentPlayback({
+        name: trackInfo?.item?.name,
+        albumArt: trackInfo?.item?.album.images[0].url,
+        songID: trackInfo?.item?.id,
+        artistID: trackInfo?.item?.artists[0].id,
+        genres: trackInfo?.item?.artists.genres,
+        isPlaying: trackInfo?.is_playing
       })
     })
-    pingCurrentPlayback()
   }
-
-  const pingCurrentPlayback = () => {
-    setTimeout(() => {
-      getCurrentPlayback()
-    }, 5000);
-
-  }
-
 
   return (
+    
     <div className="Card-Container">
 
       <div className="Playing-Container">
@@ -60,27 +57,27 @@ const NowPlaying = (props) => {
         <Popup trigger={popupVisible} setTrigger={setPopupVisible} />
 
         <article className="Playing-Card">
-
+          {/* Help icon which shows basic instructions for App use when clicked */}
           <QuestionIcon className="Question-Icon" onClick={() => setPopupVisible(true)} />
 
+          {/* If currentPlayback does not have an artist name then prompt the user to begin listening on their device, 
+            otherwise show the track being listened to */}
           {currentPlayback.name === undefined ?
             <header className="Playing-Message">Begin listening on your spotify player...{currentPlayback.name}</header> :
             <header className="Playing-Name">Now Playing: {currentPlayback.name}</header>
           }
 
+          {/* Displays the album art of the current track */}
           <img className="Playing-Img" src={currentPlayback.albumArt} />
 
           {/* Player to allow Manipulating Spotify player from browser */}
-          <PlayerIcons className="Icons-Container" getCurrentPlayback={getCurrentPlayback} />
-
-
-
+          <PlayerIcons className="Icons-Container" isPlaying={currentPlayback.isPlaying} />
+          {currentPlayback.length > 0 && <PlayerIcons className="Icons-Container" isPlaying={currentPlayback.isPlaying} />}
 
         </article>
-
       </div>
-      
-      {currentPlayback.artistID && <GetRecommendations artistID={currentPlayback.artistID} songID={currentPlayback.songID} />}
+      {/* Only display recommendations if the currentPlayback state has had an artist ID set */}
+      {currentPlayback?.artistID && <GetRecommendations artistID={currentPlayback.artistID} songID={currentPlayback.songID} />}
     </div>
   )
 }
