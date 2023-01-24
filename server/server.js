@@ -43,10 +43,6 @@ app.use(express.static(__dirname + '../client/build'))
    .use(cors())
    .use(cookieParser());
    console.log("HERE: " + __dirname)
-   
-app.get(`${main_uri}`, function(req, res) {
-  res.send("testing");
-});
 
 app.get('/login', function(req, res) {
 
