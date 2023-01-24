@@ -154,7 +154,7 @@ app.get('*', (req, res) => {
 
 // Check for port at start of server, defaulting to 8888 for dev environments
 let port = process.env.PORT || 8888
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Listening on ${port}`);
 });
 
