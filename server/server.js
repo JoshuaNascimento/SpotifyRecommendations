@@ -13,6 +13,7 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+const { getSystemErrorMap } = require("util");
 
 var client_id = `${process.env.CLIENT_ID}`;
 var client_secret = `${process.env.CLIENT_SECRET}`;
@@ -146,5 +147,6 @@ app.get('/refresh_token', function(req, res) {
 });
 
 // Check for port at start of server, defaulting to 8888 for dev environments
+const PORT = process.env.PORT || 8888;
+console.log(`Listening on PORT:${PORT}`)
 app.listen(process.env.PORT || 8888);
-console.log(`Listening on ${PORT}`);
