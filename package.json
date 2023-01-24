@@ -4,7 +4,7 @@
   "description": "Basic examples of the Spotify authorization flows through OAuth 2",
   "version": "0.0.2",
   "scripts": {
-    "start": "npm install && npm start",
+    "start": "cd server && npm start",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
@@ -14,7 +14,6 @@
     "dotenv": "^16.0.3",
     "express": "~4.16.0",
     "querystring": "~0.2.0",
-    "request": "~2.83.0",
-    "spotify-web-api-js": "^1.5.2"
+    "request": "~2.83.0"
   }
 }
