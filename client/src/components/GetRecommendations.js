@@ -106,6 +106,7 @@ const GetRecommendations = (props) => {
     
     // Call spotifyAPI to add the track to a user's liked songs playlist
     spotifyApi.addToMySavedTracks([`${track.id}`])
+    console.log("save called")
   }
 
   return (

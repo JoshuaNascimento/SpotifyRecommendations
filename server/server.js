@@ -13,7 +13,6 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-const { getSystemErrorMap } = require("util");
 
 var client_id = `${process.env.CLIENT_ID}`;
 var client_secret = `${process.env.CLIENT_SECRET}`;
@@ -39,13 +38,11 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(path.join(__dirname, 'client/build')))
+app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
-   console.log("HERE: " + __dirname)
 
 app.get('/login', function(req, res) {
-
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -148,13 +145,7 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
-
 // Check for port at start of server, defaulting to 8888 for dev environments
-let port = process.env.PORT || 8888
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Listening on ${port}`);
-});
-
+const PORT = process.env.PORT || 8888
+console.log(`Listening on ${PORT}`);
+app.listen(PORT);
