@@ -8,28 +8,20 @@ import {ReactComponent as PauseIcon} from "./Assets/pause-icon.svg"
 
 import SpotifyWebApi from 'spotify-web-api-js';
 
-function PlayerIcons() {
+/**
+ * If NowPlaying detects the user is actively listening to a track then the component renders to allow the user to control their spotify player
+ * from within the webapp
+ * @param {*} props - isPlaying variable from NowPlaying State
+ * @returns 
+ */
+function PlayerIcons(props) {
 
   const spotifyApi = new SpotifyWebApi()
 
-  const [isPlaying, setIsPlaying] = useState(false)
-
-  useEffect( () => {
-    const timer = setTimeout( () => {
-    }, 5000);
-    spotifyApi.getMyCurrentPlaybackState().then( (response) => {
-      //console.log(response.is_playing)
-      setIsPlaying(response.is_playing)
-      return () => setTimeout(timer)
-    }, [])
-
-  })
-
   return (
     <div className="Icons-Container">
-      {/* TODO: Use get playback state and the "is_playing" return value to determine whether to display the pause or play icon*/}
           <PreviousIcon className="Player-Icons" onClick={() => spotifyApi.skipToPrevious()}/>
-          {isPlaying === true ? 
+          {props.isPlaying === true ? 
             <PauseIcon className="Player-Icons" onClick={() => spotifyApi.pause()}/> 
               :
             <PlayIcon className="Player-Icons" onClick={() => spotifyApi.play()}/>

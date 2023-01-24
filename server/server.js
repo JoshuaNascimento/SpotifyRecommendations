@@ -14,9 +14,10 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = `${process.env.CLIENT_ID}`; // Your client id
-var client_secret = `${process.env.CLIENT_SECRET}`; // Your secret
-var redirect_uri = `${process.env.REDIRECT_URI}`; // Your redirect uri
+var client_id = `${process.env.CLIENT_ID}`;
+var client_secret = `${process.env.CLIENT_SECRET}`;
+var redirect_uri = `${process.env.REDIRECT_URI}`;
+var main_uri = `${process.env.MAIN_URI}`;
 
 /**
  * Generates a random string containing numbers and letters
@@ -105,13 +106,13 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('https://shufflemy.herokuapp.com/#' +
+        res.redirect(`${main_uri}` +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
       } else {
-        res.redirect('https://shufflemy.herokuapp.com/#' +
+        res.redirect(`${main_uri}` +
           querystring.stringify({
             error: 'invalid_token'
           }));
