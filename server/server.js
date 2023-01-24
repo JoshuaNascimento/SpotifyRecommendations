@@ -42,6 +42,7 @@ var app = express();
 app.use(express.static(__dirname + '../client/public'))
    .use(cors())
    .use(cookieParser());
+   console.log("HERE: " + __dirname)
 
 app.get('/login', function(req, res) {
 
