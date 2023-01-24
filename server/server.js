@@ -148,7 +148,6 @@ app.get('/refresh_token', function(req, res) {
 
 // Check for port at start of server, defaulting to 8888 for dev environments
 let port = process.env.PORT || 8888
-console.log(`Listening on ${port}`);
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
