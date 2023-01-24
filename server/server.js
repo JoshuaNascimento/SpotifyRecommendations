@@ -39,7 +39,7 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '../client/build'))
+app.use(express.static(path.join(__dirname, 'client/build')))
    .use(cors())
    .use(cookieParser());
    console.log("HERE: " + __dirname)
@@ -146,6 +146,10 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 // Check for port at start of server, defaulting to 8888 for dev environments
