@@ -39,12 +39,17 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '../client/public'))
+app.use(express.static(__dirname + '../client/build'))
    .use(cors())
    .use(cookieParser());
    console.log("HERE: " + __dirname)
+   
+app.get(`${main_uri}`, function(req, res)) {
+  res.send("testing");
+}
 
 app.get('/login', function(req, res) {
+
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
