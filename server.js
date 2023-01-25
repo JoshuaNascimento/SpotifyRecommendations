@@ -39,20 +39,9 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"))
-    .use(cors())
-    .use(cookieParser());
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname,  "build", "index.html"));
-  });
-} else {
-  app.use(express.static(__dirname + 'client/public'))
-   .use(cors())
-   .use(cookieParser());
-}
-
-
+app.use(express.static(__dirname + '/client/build'))
+  .use(cors())
+  .use(cookieParser());
 
 app.get('/login', function(req, res) {
 
@@ -158,6 +147,7 @@ app.get('/refresh_token', function(req, res) {
 });
 
 // Check for port at start of server, defaulting to 8888 for dev environments
-const PORT = process.env.PORT || 8888;
-console.log(`Listening on PORT:${PORT}`)
+const PORT = process.env.PORT || 8888
+console.log(`Listening on ${PORT}`);
+console.log("HERE: " + __dirname)
 app.listen(PORT);
