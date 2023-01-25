@@ -7,7 +7,8 @@ import GetRecommendations from "./components/GetRecommendations"
 
 const spotifyApi = new SpotifyWebApi()
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8888
+console.log(PORT)
 const LOGINURL = `http://localhost:${PORT}/login`
 
 const getTokenFromURL = () => {
