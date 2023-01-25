@@ -42,9 +42,6 @@ app.use(express.static(__dirname + '/client/build'))
   .use(cors())
   .use(cookieParser());
 
-
-
-
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -151,5 +148,4 @@ app.get('/refresh_token', function(req, res) {
 // Check for port at start of server, defaulting to 8888 for dev environments
 const PORT = process.env.PORT || 8888
 console.log(`Listening on ${PORT}`);
-console.log("HERE: " + __dirname)
 app.listen(PORT);
