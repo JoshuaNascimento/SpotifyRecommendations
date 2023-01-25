@@ -9,7 +9,7 @@ const spotifyApi = new SpotifyWebApi()
 
 const PORT = process.env.PORT || 8888
 console.log(PORT)
-const LOGINURL = `http://localhost:${PORT}/login`
+const LOGINURL = `http://0.0.0.0:${PORT}/login`
 
 const getTokenFromURL = () => {
   return window.location.hash.substring(1).split("&").reduce((initial, item) => {
