@@ -8,7 +8,6 @@ import GetRecommendations from "./components/GetRecommendations"
 const spotifyApi = new SpotifyWebApi()
 
 const PORT = process.env.PORT || 8888
-console.log(PORT)
 const LOGINURL = `https://shufflemy.herokuapp.com/login`
 
 const getTokenFromURL = () => {
