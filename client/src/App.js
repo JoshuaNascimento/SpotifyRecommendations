@@ -9,7 +9,7 @@ const spotifyApi = new SpotifyWebApi()
 
 const PORT = process.env.PORT || 8888
 console.log(PORT)
-const LOGINURL = `http://http://shufflemy.herokuapp.com/login`
+const LOGINURL = `https://shufflemy.herokuapp.com/login`
 
 const getTokenFromURL = () => {
   return window.location.hash.substring(1).split("&").reduce((initial, item) => {
