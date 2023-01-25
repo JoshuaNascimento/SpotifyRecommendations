@@ -71,8 +71,7 @@ const NowPlaying = (props) => {
           <img className="Playing-Img" src={currentPlayback.albumArt} />
 
           {/* Player to allow Manipulating Spotify player from browser */}
-          <PlayerIcons className="Icons-Container" isPlaying={currentPlayback.isPlaying} />
-          {currentPlayback.length > 0 && <PlayerIcons className="Icons-Container" isPlaying={currentPlayback.isPlaying} />}
+          {currentPlayback.name ? <PlayerIcons className="Icons-Container" isPlaying={currentPlayback.isPlaying}/> : ""}
 
         </article>
       </div>
