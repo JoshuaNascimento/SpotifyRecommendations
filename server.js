@@ -38,18 +38,10 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"))
-    .use(cors())
-    .use(cookieParser());
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname,  "build", "index.html"));
-  });
-} else {
-  app.use(express.static(__dirname + 'client/public'))
-   .use(cors())
-   .use(cookieParser());
-}
+app.use(express.static(__dirname + 'build'))
+  .use(cors())
+  .use(cookieParser());
+
 
 
 
